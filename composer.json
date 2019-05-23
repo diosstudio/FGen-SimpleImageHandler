@@ -1,0 +1,13 @@
+{
+    "name": "dios/fgen-simple-image-handler",
+    "description": "SimpleImageHandler for FGen package. Used in Dios CMS",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleg Dmitrochenko",
+            "email": "dmitrochenkooleg@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
