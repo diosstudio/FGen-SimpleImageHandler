@@ -1,2 +1,7 @@
-# FGen-SimpleImageHandler
+# Simple image handler
 SimpleImageHandler for FGen package. Used in Dios CMS
+
+
+
+По умолчанию в качестве префикса используется исходная директория с файлом.
+При необходимости, например, необходимо полность сменить хранилище, можно передать дополнительный параметр в функцию.

@@ -1,6 +1,7 @@
 {
-    "name": "dios/fgen-simple-image-handler",
-    "description": "SimpleImageHandler for FGen package. Used in Dios CMS",
+    "name": "dios/simple-image-handler",
+    "description": "A simple image handler for FGen based on the Intervention Image package.",
+    "keywords": ["dios", "fgen", "image", "handler", "resize", "thumbnail", "converter", "file", "watermark", "intervention", "signature"],
     "license": "MIT",
     "authors": [
         {
@@ -9,5 +10,25 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": "^7.0",
+        "belca/support": "dev-master",
+        "belca/gename": "dev-master",
+        "intervention/image": "^2.4@dev"
+    },
+    "suggest": {
+        "belca/fgen": "for connecting multiple modules to handle files.",
+        "belca/filehandler": "to manage file handlers."
+    },
+    "autoload": {
+        "psr-4": {
+            "Dios\\SimpleImageHandler\\": ""
+        }
+    },
+    "repositories": [
+        {
+          "type": "path",
+          "url": "~/Documents/Code/github/diosstudio/DiosCMS-core/src/Belca/*"
+        }
+    ]
 }
