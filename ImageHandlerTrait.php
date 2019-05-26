@@ -25,7 +25,8 @@ trait ImageHandlerTrait
      */
     public function resize($filename, $options = [])
     {
-        $originalFile = $this->initFilename($filename, $this->getSourceDirectory());
+        $sourceDirectory = $this->getSourceDirectory();
+        $originalFile = $this->initFilename($filename, $sourceDirectory);
         $img = $this->initImage($originalFile);
         $this->resizeImage($img, $options['width'] ?? null, $options['height'] ?? null, $options['reduce'] ?? null);
         $this->cropImage($img, $options['crop_width'] ?? null, $options['crop_width'] ?? null, $options['margin_top'] ?? null, $options['margin_left'] ?? null, $options['resize'] ?? false);
@@ -35,7 +36,7 @@ trait ImageHandlerTrait
         // иначе в качестве директории для сохранения используется директория
         // с исходным файлом.
         if (isset($options['directory_prefix_pattern']) || isset($options['directory_pattern'])) {
-            $directoryPrefix = $this->makeDirectory($options['directory_prefix_pattern'] ?? '{sourceDirectory}', array_merge(['sourceDirectory' => $this->getSourceDirectory()], $options));
+            $directoryPrefix = $this->makeDirectory($options['directory_prefix_pattern'] ?? '{sourceDirectory}', array_merge(['sourceDirectory' => $sourceDirectory], $options));
             $finalDirectory = Str::normalizeFilePath($directoryPrefix.'/'.$this->makeDirectory($options['directory_pattern'] ?? null, $options));
         } else {
             $finalDirectory = $this->getFinalDirectory();
@@ -51,23 +52,25 @@ trait ImageHandlerTrait
             'size' => $img->filesize(),
             'mime' => $img->mime(),
             'fullname' => Str::normalizeFilePath($newFilename),
-            'relativename' => Str::differenceSubstring($this->getSourceDirectory(), $newFilename),
+            'relative_filename' => Str::differenceSubstring($sourceDirectory, $newFilename), // TODO неверная логика, т.к. нужно сравнивать с начальным путем конечной директории
             'filename' => $pathinfo['basename'],
             'shortname' => $pathinfo['filename'],
-            'final_directory' => $this->getFinalDirectory(),
-            'source_directory' => $this->getSourceDirectory(),
+            'final_directory' => $finalDirectory,
+            'source_directory' => $sourceDirectory,
+            'original_file' => $originalFile,
         ];
     }
 
     public function thumbnail($filename, $options = [])
     {
-        $originalFile = $this->initFilename($filename, $this->getSourceDirectory());
+        $sourceDirectory = $this->getSourceDirectory();
+        $originalFile = $this->initFilename($filename, $sourceDirectory);
         $img = $this->initImage($originalFile);
         $this->cropImage($img, $options['width'] ?? 100, $options['height'] ?? 100, $options['margin_top'] ?? null, $options['margin_left'] ?? null, $options['resize'] ?? true);
         $quality = $this->initQuality($options['quality'] ?? null);
 
         if (isset($options['directory_prefix_pattern']) || isset($options['directory_pattern'])) {
-            $directoryPrefix = $this->makeDirectory($options['directory_prefix_pattern'] ?? '{sourceDirectory}', array_merge(['sourceDirectory' => $this->getSourceDirectory()], $options));
+            $directoryPrefix = $this->makeDirectory($options['directory_prefix_pattern'] ?? '{sourceDirectory}', array_merge(['sourceDirectory' => $sourceDirectory], $options));
             $finalDirectory = Str::normalizeFilePath($directoryPrefix.'/'.$this->makeDirectory($options['directory_pattern'] ?? null, $options));
         } else {
             $finalDirectory = $this->getFinalDirectory();
@@ -83,11 +86,12 @@ trait ImageHandlerTrait
             'size' => $img->filesize(),
             'mime' => $img->mime(),
             'fullname' => Str::normalizeFilePath($newFilename),
-            'relativename' => Str::differenceSubstring($this->getSourceDirectory(), $newFilename),
+            'relative_filename' => Str::differenceSubstring($sourceDirectory, $newFilename), // TODO неверная логика, т.к. нужно сравнивать с начальным путем конечной директории
             'filename' => $pathinfo['basename'],
             'shortname' => $pathinfo['filename'],
-            'final_directory' => $this->getFinalDirectory(),
-            'source_directory' => $this->getSourceDirectory(),
+            'final_directory' => $finalDirectory,
+            'source_directory' => $sourceDirectory,
+            'original_file' => $originalFile,
         ];
     }
 
@@ -100,7 +104,8 @@ trait ImageHandlerTrait
      */
     public function signature($filename, $options = [])
     {
-        $originalFile = $this->initFilename($filename, $this->getSourceDirectory());
+        $sourceDirectory = $this->getSourceDirectory();
+        $originalFile = $this->initFilename($filename, $sourceDirectory);
         $img = $this->initImage($originalFile);
         $quality = $this->initQuality($options['quality'] ?? null);
 
@@ -128,7 +133,7 @@ trait ImageHandlerTrait
         }
 
         if (isset($options['directory_prefix_pattern']) || isset($options['directory_pattern'])) {
-            $directoryPrefix = $this->makeDirectory($options['directory_prefix_pattern'] ?? '{sourceDirectory}', array_merge(['sourceDirectory' => $this->getSourceDirectory()], $options));
+            $directoryPrefix = $this->makeDirectory($options['directory_prefix_pattern'] ?? '{sourceDirectory}', array_merge(['sourceDirectory' => $sourceDirectory], $options));
             $finalDirectory = Str::normalizeFilePath($directoryPrefix.'/'.$this->makeDirectory($options['directory_pattern'] ?? null, $options));
         } else {
             $finalDirectory = $this->getFinalDirectory();
@@ -144,11 +149,12 @@ trait ImageHandlerTrait
             'size' => $img->filesize(),
             'mime' => $img->mime(),
             'fullname' => Str::normalizeFilePath($newFilename),
-            'relativename' => Str::differenceSubstring($this->getSourceDirectory(), $newFilename),
+            'relative_filename' => Str::differenceSubstring($sourceDirectory, $newFilename), // TODO неверная логика, т.к. нужно сравнивать с начальным путем конечной директории
             'filename' => $pathinfo['basename'],
             'shortname' => $pathinfo['filename'],
-            'final_directory' => $this->getFinalDirectory(),
-            'source_directory' => $this->getSourceDirectory(),
+            'final_directory' => $finalDirectory,
+            'source_directory' => $sourceDirectory,
+            'original_file' => $originalFile,
         ];
     }
 
