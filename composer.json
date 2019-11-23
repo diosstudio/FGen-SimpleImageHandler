@@ -24,11 +24,5 @@
         "psr-4": {
             "Dios\\SimpleImageHandler\\": ""
         }
-    },
-    "repositories": [
-        {
-          "type": "path",
-          "url": "~/Documents/Code/github/diosstudio/DiosCMS-core/src/Belca/*"
-        }
-    ]
+    }
 }
