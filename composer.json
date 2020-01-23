@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.0",
-        "belca/support": "0.10.*",
+        "belca/support": "0.9.*",
         "belca/gename": "dev-master",
         "intervention/image": "~2.0"
     },
