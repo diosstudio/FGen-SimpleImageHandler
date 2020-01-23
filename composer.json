@@ -17,8 +17,8 @@
         "intervention/image": "~2.0"
     },
     "suggest": {
-        "belca/fgen": "for connecting multiple modules to handle files.",
-        "belca/filehandler": "to manage file handlers."
+        "belca/fgen": "It uses to connecting multiple modules to handle files.",
+        "belca/filehandler": "It uses to manage file handlers."
     },
     "autoload": {
         "psr-4": {
